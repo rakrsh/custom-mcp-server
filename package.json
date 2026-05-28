@@ -19,7 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/server": "^1.29.0",
+    "@modelcontextprotocol/server": "*",
     "zod": "^4.0.0"
   },
   "devDependencies": {
