@@ -16,17 +16,17 @@ server.registerTool(
     inputSchema: z.object({
       agentName: z.string().describe('Name of the AI agent to execute'),
       task: z.string().describe('Task for the agent to perform'),
-      parameters: z.record(z.unknown()).optional().describe('Additional parameters for the task'),
+      parameters: z.record(z.string(), z.unknown()).optional().describe('Additional parameters for the task'),
     }),
   },
-  async ({ agentName, task, parameters }) => {
+  async ({ agentName, task, parameters }: { agentName: string; task: string; parameters?: Record<string, unknown> }) => {
     try {
       // Implement your custom agent logic here
       const result = await executeCustomAgent(agentName, task, parameters || {});
       return {
         content: [
           {
-            type: 'text',
+            type: 'text' as const,
             text: JSON.stringify(result, null, 2),
           },
         ],
@@ -35,7 +35,7 @@ server.registerTool(
       return {
         content: [
           {
-            type: 'text',
+            type: 'text' as const,
             text: `Error executing agent: ${error instanceof Error ? error.message : String(error)}`,
           },
         ],
@@ -46,13 +46,13 @@ server.registerTool(
 );
 
 // Example: Register a resource for agent information
-server.registerResourceTemplate(
+server.registerResource(
   'agent://agents/{agentId}',
   {
     description: 'Access information about a custom AI agent',
     mimeType: 'application/json',
   },
-  async ({ agentId }) => {
+  async ({ agentId }: { agentId: string }) => {
     // Implement logic to fetch agent information
     const agentInfo = await getAgentInfo(agentId);
     return {
@@ -68,25 +68,24 @@ server.registerResourceTemplate(
 );
 
 // Example: Register a prompt for agent configuration
-server.registerPromptTemplate(
+server.registerPrompt(
   'configure_agent',
   {
     description: 'Generate a configuration prompt for an AI agent',
-    arguments: [
-      {
-        name: 'agentType',
-        description: 'Type of AI agent (e.g., research, automation, analysis)',
-        required: true,
-      },
-    ],
+    argsSchema: z.object({
+      agentType: z.string().describe('Type of AI agent (e.g., research, automation, analysis)'),
+    }),
   },
-  async ({ agentType }) => {
+  async ({ agentType }: { agentType: string }) => {
     const prompt = generateAgentConfigPrompt(agentType);
     return {
       messages: [
         {
-          role: 'user',
-          content: prompt,
+          role: 'user' as const,
+          content: {
+            type: 'text' as const,
+            text: prompt,
+          },
         },
       ],
     };
