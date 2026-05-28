@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "custom-ai-agents": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["dist/index.js"]
+    }
+  }
+}
