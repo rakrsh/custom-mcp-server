@@ -1,6 +1,79 @@
-import { McpServer } from '@modelcontextprotocol/server';
-import { StdioServerTransport } from '@modelcontextprotocol/server/stdio';
+import { McpServer, Transport, JSONRPCMessage, TransportSendOptions } from '@modelcontextprotocol/server';
+import { Readable, Writable } from 'stream';
 import * as z from 'zod';
+
+// Custom Stdio Transport implementation for v2
+class StdioTransport implements Transport {
+  private input: Readable;
+  private output: Writable;
+  private onMessage?: (message: JSONRPCMessage) => Promise<void>;
+  private onError?: (error: Error) => void;
+  private onClose?: () => void;
+
+  constructor(input: Readable = process.stdin, output: Writable = process.stdout) {
+    this.input = input;
+    this.output = output;
+  }
+
+  async send(message: JSONRPCMessage, _options?: TransportSendOptions): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.output.write(JSON.stringify(message) + '\n', (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+
+  async start(): Promise<void> {
+    this.input.on('data', (chunk: Buffer) => {
+      try {
+        const lines = chunk.toString().split('\n');
+        for (const line of lines) {
+          if (line.trim()) {
+            const message = JSON.parse(line) as JSONRPCMessage;
+            if (this.onMessage) {
+              this.onMessage(message).catch((err) => {
+                console.error('Error handling message:', err);
+              });
+            }
+          }
+        }
+      } catch (error) {
+        if (this.onError) {
+          this.onError(error instanceof Error ? error : new Error(String(error)));
+        }
+      }
+    });
+
+    this.input.on('end', () => {
+      if (this.onClose) {
+        this.onClose();
+      }
+    });
+
+    this.input.on('error', (error: Error) => {
+      if (this.onError) {
+        this.onError(error);
+      }
+    });
+  }
+
+  async close(): Promise<void> {
+    // No-op for stdio
+  }
+
+  setMessageHandler(handler: (message: JSONRPCMessage) => Promise<void>): void {
+    this.onMessage = handler;
+  }
+
+  setErrorHandler(handler: (error: Error) => void): void {
+    this.onError = handler;
+  }
+
+  setCloseHandler(handler: () => void): void {
+    this.onClose = handler;
+  }
+}
 
 // Initialize the MCP server
 const server = new McpServer({
@@ -45,20 +118,23 @@ server.registerTool(
   }
 );
 
-// Example: Register a resource for agent information
+// Example: Register a resource for agent information (using resource template)
 server.registerResource(
-  'agent://agents/{agentId}',
+  'agent-resource',
+  {
+    uriTemplate: 'agent://agents/{agentId}',
+  } as any,
   {
     description: 'Access information about a custom AI agent',
     mimeType: 'application/json',
   },
-  async ({ agentId }: { agentId: string }) => {
-    // Implement logic to fetch agent information
+  async (url: URL) => {
+    const agentId = url.pathname.split('/').pop() || 'unknown';
     const agentInfo = await getAgentInfo(agentId);
     return {
       contents: [
         {
-          uri: `agent://agents/${agentId}`,
+          uri: url.toString(),
           mimeType: 'application/json',
           text: JSON.stringify(agentInfo, null, 2),
         },
@@ -125,7 +201,7 @@ function generateAgentConfigPrompt(agentType: string): string {
 
 // Main server startup
 async function main(): Promise<void> {
-  const transport = new StdioServerTransport();
+  const transport = new StdioTransport();
   console.error('Starting Custom AI Agents MCP Server...');
   await server.connect(transport);
   console.error('Server connected and ready');
