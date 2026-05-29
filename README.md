@@ -249,9 +249,10 @@ The full documentation set is available in the `docs/` folder:
 
 ## Documentation deployment
 
-A GitHub Actions workflow deploys the documentation to the `gh-pages` branch.
+A GitHub Actions workflow builds the MkDocs site and deploys the generated HTML to the `gh-pages` branch.
 
 - Workflow file: `.github/workflows/deploy-docs.yml`
+- Configuration file: `mkdocs.yml`
 - Triggered automatically on `push` to `main`
 - Triggered manually via `workflow_dispatch`
 
