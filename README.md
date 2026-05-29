@@ -238,6 +238,25 @@ Configuration prompt template for the agent type
 3. Server logs are sent to stderr via `console.error()`
 4. Check Claude or client application logs for protocol-level debugging
 
+## Documentation
+
+The full documentation set is available in the `docs/` folder:
+
+- `docs/index.md` - Documentation homepage
+- `docs/user-guide.md` - User guide for installation and usage
+- `docs/manual.md` - Technical manual and maintenance details
+- `Agents.md` - Agent definitions and usage examples
+
+## Documentation deployment
+
+A GitHub Actions workflow deploys the documentation to the `gh-pages` branch.
+
+- Workflow file: `.github/workflows/deploy-docs.yml`
+- Triggered automatically on `push` to `main`
+- Triggered manually via `workflow_dispatch`
+
+To update documentation, edit files in `docs/`, commit, and push to `main`.
+
 ## Development Notes
 
 - The server uses the MCP v2 alpha SDK
