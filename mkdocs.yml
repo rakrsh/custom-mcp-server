@@ -1,0 +1,17 @@
+site_name: Custom AI Agents MCP Server
+site_description: Documentation for the custom-mcp-server MCP project.
+repo_name: rakrsh/custom-mcp-server
+nav:
+  - Home: index.md
+  - User Guide: user-guide.md
+  - Manual: manual.md
+  - Agents: agents.md
+plugins:
+  - search
+markdown_extensions:
+  - toc:
+      permalink: true
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rakrsh/custom-mcp-server
