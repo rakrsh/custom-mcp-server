@@ -41,6 +41,12 @@ Run the Python example MCP server:
 python python/server.py
 ```
 
+Run the Go example MCP server:
+
+```bash
+go run ./go/cmd/custom-mcp-server
+```
+
 ## Python package usage
 
 Install the package in editable mode from the `python` directory:
@@ -54,6 +60,21 @@ Import the Python API directly:
 
 ```python
 from custom_mcp_server import execute_agent_task, get_agent_info, configure_agent
+```
+
+## Go package usage
+
+From the repository root, install the Go CLI locally:
+
+```bash
+cd go
+go install ./cmd/custom-mcp-server
+```
+
+Import the reusable Go package:
+
+```go
+import "github.com/rakrsh/custom-mcp-server/go/mcpserver"
 ```
 
 ## Using the MCP server

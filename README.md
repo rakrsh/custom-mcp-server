@@ -31,6 +31,13 @@ This MCP server enables AI applications like Claude or other LLMs to:
 
 ```
 custom-mcp-server/
+├── go/
+│   ├── cmd/
+│   │   └── custom-mcp-server/main.go # Go CLI example for the MCP server
+│   ├── mcpserver/
+│   │   └── mcpserver.go             # Reusable Go package implementation
+│   ├── go.mod                       # Go module definition
+│   └── README.md                    # Go usage guide
 ├── python/
 │   ├── server.py            # Python MCP server example implementation
 │   ├── README.md            # Python usage guide
@@ -53,6 +60,7 @@ custom-mcp-server/
 - Node.js 20 or higher for the TypeScript server
 - npm or yarn for the TypeScript installation
 - Python 3.11 or newer for the Python server example
+- Go 1.21 or newer for the Go server example
 
 ### Installation
 
@@ -107,6 +115,29 @@ Then import the reusable Python module:
 
 ```python
 from custom_mcp_server import execute_agent_task, get_agent_info, configure_agent
+```
+
+### Go example server
+
+Run the Go example MCP server:
+
+```bash
+go run ./go/cmd/custom-mcp-server
+```
+
+### Go package usage
+
+Install the Go CLI locally from the `go` directory:
+
+```bash
+cd go
+go install ./cmd/custom-mcp-server
+```
+
+Import the reusable Go package in your Go code:
+
+```go
+import "github.com/rakrsh/custom-mcp-server/go/mcpserver"
 ```
 
 ### Watch Mode

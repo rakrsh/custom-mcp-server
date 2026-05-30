@@ -15,6 +15,13 @@ This is a Model Context Protocol (MCP) server designed to enable custom AI agent
 
 ```
 custom-mcp-server/
+├── go/
+│   ├── cmd/
+│   │   └── custom-mcp-server/main.go # Go CLI example for the MCP server
+│   ├── mcpserver/
+│   │   └── mcpserver.go             # Reusable Go package implementation
+│   ├── go.mod                       # Go module definition
+│   └── README.md                    # Go usage guide
 ├── python/
 │   ├── server.py            # Python MCP server example implementation
 │   ├── README.md            # Python usage guide
