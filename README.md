@@ -1,6 +1,7 @@
 # Custom AI Agents MCP Server
 
 A Model Context Protocol (MCP) server for managing and executing custom AI agents with standardized capabilities.
+This repository includes both a TypeScript implementation and a Python example implementation for the same MCP capabilities.
 
 ## Overview
 
@@ -30,8 +31,12 @@ This MCP server enables AI applications like Claude or other LLMs to:
 
 ```
 custom-mcp-server/
+├── python/
+│   ├── server.py            # Python MCP server example implementation
+│   ├── README.md            # Python usage guide
+│   └── requirements.txt     # Python dependencies (none required)
 ├── src/
-│   └── index.ts              # Main MCP server implementation
+│   └── index.ts              # Main TypeScript MCP server implementation
 ├── dist/                     # Compiled JavaScript output
 ├── .vscode/
 │   └── mcp.json             # VS Code MCP configuration
@@ -45,14 +50,17 @@ custom-mcp-server/
 ## Getting Started
 
 ### Prerequisites
-- Node.js 20 or higher
-- npm or yarn
+- Node.js 20 or higher for the TypeScript server
+- npm or yarn for the TypeScript installation
+- Python 3.11 or newer for the Python server example
 
 ### Installation
 
 ```bash
 npm install
 ```
+
+For Python usage, no additional packages are required to run the example server.
 
 ### Build
 
@@ -72,10 +80,18 @@ npm run dev
 
 ### Production
 
-Start the compiled server:
+Start the compiled TypeScript server:
 
 ```bash
 npm start
+```
+
+### Python example server
+
+Start the Python example MCP server:
+
+```bash
+python python/server.py
 ```
 
 ### Watch Mode
