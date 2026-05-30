@@ -104,6 +104,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-bs-level="2"><a href="#go-package-usage" class="nav-link">Go package usage</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-bs-level="2"><a href="#using-the-mcp-server" class="nav-link">Using the MCP server</a>
               <ul class="nav flex-column">
               </ul>
@@ -143,6 +147,9 @@
 <p>Run the Python example MCP server:</p>
 <pre><code class="language-bash">python python/server.py
 </code></pre>
+<p>Run the Go example MCP server:</p>
+<pre><code class="language-bash">go run ./go/cmd/custom-mcp-server
+</code></pre>
 <h2 id="python-package-usage">Python package usage<a class="headerlink" href="#python-package-usage" title="Permanent link">&para;</a></h2>
 <p>Install the package in editable mode from the <code>python</code> directory:</p>
 <pre><code class="language-bash">cd python
@@ -150,6 +157,14 @@ python -m pip install -e .
 </code></pre>
 <p>Import the Python API directly:</p>
 <pre><code class="language-python">from custom_mcp_server import execute_agent_task, get_agent_info, configure_agent
+</code></pre>
+<h2 id="go-package-usage">Go package usage<a class="headerlink" href="#go-package-usage" title="Permanent link">&para;</a></h2>
+<p>From the repository root, install the Go CLI locally:</p>
+<pre><code class="language-bash">cd go
+go install ./cmd/custom-mcp-server
+</code></pre>
+<p>Import the reusable Go package:</p>
+<pre><code class="language-go">import &quot;github.com/rakrsh/custom-mcp-server/go/mcpserver&quot;
 </code></pre>
 <h2 id="using-the-mcp-server">Using the MCP server<a class="headerlink" href="#using-the-mcp-server" title="Permanent link">&para;</a></h2>
 <p>The server exposes three primary MCP capabilities:</p>
