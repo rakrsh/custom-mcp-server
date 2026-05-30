@@ -12,10 +12,32 @@ It provides the same basic MCP-compatible capabilities as the TypeScript impleme
 - Python 3.11 or newer
 - No external packages are required for the example server
 
+## Installing as a Python package
+
+From the repository root:
+
+```bash
+cd python
+python -m pip install -e .
+```
+
 ## Running the Python server
 
 ```bash
 python python/server.py
+```
+
+## Using the package from Python
+
+```python
+from custom_mcp_server import execute_agent_task, get_agent_info, configure_agent
+
+result = execute_agent_task({
+    "agentName": "research-bot",
+    "task": "Analyze the latest market trends for AI tools",
+    "parameters": {"format": "summary"},
+})
+print(result)
 ```
 
 ## Example request patterns
