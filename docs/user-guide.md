@@ -41,6 +41,21 @@ Run the Python example MCP server:
 python python/server.py
 ```
 
+## Python package usage
+
+Install the package in editable mode from the `python` directory:
+
+```bash
+cd python
+python -m pip install -e .
+```
+
+Import the Python API directly:
+
+```python
+from custom_mcp_server import execute_agent_task, get_agent_info, configure_agent
+```
+
 ## Using the MCP server
 
 The server exposes three primary MCP capabilities:

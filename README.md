@@ -94,6 +94,21 @@ Start the Python example MCP server:
 python python/server.py
 ```
 
+### Python package usage
+
+Install the Python package in editable mode:
+
+```bash
+cd python
+python -m pip install -e .
+```
+
+Then import the reusable Python module:
+
+```python
+from custom_mcp_server import execute_agent_task, get_agent_info, configure_agent
+```
+
 ### Watch Mode
 
 Watch for changes and recompile:
