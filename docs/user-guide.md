@@ -23,7 +23,7 @@ npm run build
 
 ## Running the server
 
-Start the compiled MCP server:
+Start the compiled TypeScript MCP server:
 
 ```bash
 npm start
@@ -33,6 +33,12 @@ For local development with TypeScript directly:
 
 ```bash
 npm run dev
+```
+
+Run the Python example MCP server:
+
+```bash
+python python/server.py
 ```
 
 ## Using the MCP server

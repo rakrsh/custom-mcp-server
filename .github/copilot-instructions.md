@@ -15,6 +15,10 @@ This is a Model Context Protocol (MCP) server designed to enable custom AI agent
 
 ```
 custom-mcp-server/
+├── python/
+│   ├── server.py            # Python MCP server example implementation
+│   ├── README.md            # Python usage guide
+│   └── requirements.txt     # Python dependencies (none required)
 ├── src/
 │   └── index.ts              # Main MCP server implementation
 ├── dist/                     # Compiled JavaScript output
@@ -53,6 +57,12 @@ npm run build
 ### Development (with TypeScript)
 ```bash
 npm run dev
+```
+
+## Python Example
+Start the Python server example:
+```bash
+python python/server.py
 ```
 
 ### Production
