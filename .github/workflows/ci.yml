@@ -71,17 +71,17 @@ jobs:
       - name: Perform CodeQL analysis
         uses: github/codeql-action/analyze@v3
 
-      - name: Run trivy vulnerability scan
-        uses: aquasecurity/trivy-action@0.24.0
+      - name: Run Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           format: sarif
-          output: trivy-results.sarif
+          output: trivy-release.sarif
 
       - name: Upload Trivy scan results
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: trivy-results.sarif
+          sarif_file: trivy-release.sarif
 
   docs:
     name: Build docs
